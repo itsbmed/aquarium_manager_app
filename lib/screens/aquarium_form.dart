@@ -18,6 +18,7 @@ class _AquariumFormState extends State<AquariumForm> {
   final width = TextEditingController();
   final height = TextEditingController();
   double volume = 0;
+  String? coral; // Ausgewählter Korallentyp
 
   // Volumen berechnen: (L × B × H) / 1000 = Liter
   void calcVolume() {
@@ -96,7 +97,6 @@ class _AquariumFormState extends State<AquariumForm> {
                       ),
                     ),
 
-                    // Volumenanzeige – wird automatisch berechnet
                     _card(
                       'Volume',
                       Icons.fullscreen,
@@ -121,6 +121,50 @@ class _AquariumFormState extends State<AquariumForm> {
                                 : AppColors.muted,
                           ),
                         ),
+                      ),
+                    ),
+
+                    // Korallentyp-Auswahl
+                    _card(
+                      'Coral Type',
+                      Icons.grid_view,
+                      Row(
+                        children: ['SPS', 'LPS', 'Mixed'].map((t) {
+                          final on = coral == t;
+                          return Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: t != 'Mixed' ? 8 : 0,
+                              ),
+                              child: GestureDetector(
+                                onTap: () => setState(() => coral = t),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: on
+                                        ? AppColors.primary
+                                        : AppColors.input,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      t,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: on
+                                            ? Colors.white
+                                            : AppColors.text,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
                   ],
@@ -192,7 +236,7 @@ class _AquariumFormState extends State<AquariumForm> {
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
       ],
-      onChanged: (_) => calcVolume(), // Volumen bei jeder Eingabe neu berechnen
+      onChanged: (_) => calcVolume(),
       validator: (v) {
         if (v == null || v.isEmpty) return 'Pflichtfeld';
         final n = double.tryParse(v);
