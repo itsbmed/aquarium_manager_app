@@ -18,7 +18,7 @@ class _AquariumFormState extends State<AquariumForm> {
   final width = TextEditingController();
   final height = TextEditingController();
   double volume = 0;
-  String? coral; // Ausgewählter Korallentyp
+  String? coral;
 
   // Volumen berechnen: (L × B × H) / 1000 = Liter
   void calcVolume() {
@@ -26,6 +26,37 @@ class _AquariumFormState extends State<AquariumForm> {
     final w = double.tryParse(width.text) ?? 0;
     final h = double.tryParse(height.text) ?? 0;
     setState(() => volume = (l * w * h) / 1000);
+  }
+
+  // Speichern – Validierung prüfen und Daten an HomeScreen senden
+  void save() {
+    if (!_key.currentState!.validate()) return;
+    if (coral == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Bitte wähle einen Korallentyp')),
+      );
+      return;
+    }
+
+    // Daten an HomeScreen übergeben
+    widget.onSave({
+      'name': name.text.trim(),
+      'length': length.text,
+      'width': width.text,
+      'height': height.text,
+      'volume': volume.toStringAsFixed(1),
+      'coralType': coral,
+    });
+
+    // Formular zurücksetzen
+    name.clear();
+    length.clear();
+    width.clear();
+    height.clear();
+    setState(() {
+      volume = 0;
+      coral = null;
+    });
   }
 
   @override
@@ -124,7 +155,6 @@ class _AquariumFormState extends State<AquariumForm> {
                       ),
                     ),
 
-                    // Korallentyp-Auswahl
                     _card(
                       'Coral Type',
                       Icons.grid_view,
@@ -167,6 +197,34 @@ class _AquariumFormState extends State<AquariumForm> {
                         }).toList(),
                       ),
                     ),
+
+                    const SizedBox(height: 8),
+
+                    // Speichern-Button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: save,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        child: const Text(
+                          'SAVE',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
