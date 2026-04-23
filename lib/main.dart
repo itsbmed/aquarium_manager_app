@@ -26,11 +26,59 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int tab = 1; // 0 = Liste, 1 = Erstellen
+  int tab = 1;
   List<Map<String, dynamic>> aquariums = [];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text(tab == 0 ? 'Liste' : 'Formular')));
+    return Scaffold(
+      body: Center(child: Text(tab == 0 ? 'Liste' : 'Formular')),
+      // Untere Navigationsleiste
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: AppColors.border, width: 0.5)),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: SafeArea(
+          child: Row(
+            children: [
+              _tab(Icons.grid_view_rounded, 'MY AQUARIUMS', 0),
+              _tab(Icons.add_circle_outline, 'CREATE', 1),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Erstellt einen einzelnen Tab-Button
+  Widget _tab(IconData icon, String label, int index) {
+    final active = tab == index;
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() => tab = index),
+        behavior: HitTestBehavior.opaque,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 22,
+              color: active ? AppColors.primary : AppColors.muted,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: active ? AppColors.primary : AppColors.muted,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
