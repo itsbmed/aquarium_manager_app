@@ -17,6 +17,15 @@ class _AquariumFormState extends State<AquariumForm> {
   final length = TextEditingController();
   final width = TextEditingController();
   final height = TextEditingController();
+  double volume = 0;
+
+  // Volumen berechnen: (L × B × H) / 1000 = Liter
+  void calcVolume() {
+    final l = double.tryParse(length.text) ?? 0;
+    final w = double.tryParse(width.text) ?? 0;
+    final h = double.tryParse(height.text) ?? 0;
+    setState(() => volume = (l * w * h) / 1000);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +69,6 @@ class _AquariumFormState extends State<AquariumForm> {
                 key: _key,
                 child: Column(
                   children: [
-                    // Namenseingabe
                     _card(
                       'Aquarium Name',
                       null,
@@ -74,7 +82,6 @@ class _AquariumFormState extends State<AquariumForm> {
                       ),
                     ),
 
-                    // Maße (Länge, Breite, Höhe)
                     _card(
                       'Dimensions (cm)',
                       Icons.crop_square,
@@ -86,6 +93,34 @@ class _AquariumFormState extends State<AquariumForm> {
                           const SizedBox(width: 8),
                           Expanded(child: _dim(height, 'Height')),
                         ],
+                      ),
+                    ),
+
+                    // Volumenanzeige – wird automatisch berechnet
+                    _card(
+                      'Volume',
+                      Icons.fullscreen,
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: AppColors.input,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          volume > 0
+                              ? '${volume.toStringAsFixed(1)} L'
+                              : 'Enter dimensions to calculate...',
+                          style: TextStyle(
+                            fontSize: volume > 0 ? 18 : 14,
+                            fontWeight: volume > 0
+                                ? FontWeight.w600
+                                : FontWeight.w400,
+                            color: volume > 0
+                                ? AppColors.text
+                                : AppColors.muted,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -149,7 +184,6 @@ class _AquariumFormState extends State<AquariumForm> {
     );
   }
 
-  // Maßeingabefeld mit Zahlen-Validierung
   Widget _dim(TextEditingController ctrl, String label) {
     return TextFormField(
       controller: ctrl,
@@ -158,6 +192,7 @@ class _AquariumFormState extends State<AquariumForm> {
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
       ],
+      onChanged: (_) => calcVolume(), // Volumen bei jeder Eingabe neu berechnen
       validator: (v) {
         if (v == null || v.isEmpty) return 'Pflichtfeld';
         final n = double.tryParse(v);
