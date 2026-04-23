@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../app_colors.dart';
 
 // Formular zum Erstellen eines neuen Aquariums
@@ -13,6 +14,9 @@ class AquariumForm extends StatefulWidget {
 class _AquariumFormState extends State<AquariumForm> {
   final _key = GlobalKey<FormState>();
   final name = TextEditingController();
+  final length = TextEditingController();
+  final width = TextEditingController();
+  final height = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,6 @@ class _AquariumFormState extends State<AquariumForm> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // Kopfbereich
             Container(
               height: 180,
               width: double.infinity,
@@ -51,8 +54,6 @@ class _AquariumFormState extends State<AquariumForm> {
                 ),
               ),
             ),
-
-            // Formular
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Form(
@@ -72,6 +73,21 @@ class _AquariumFormState extends State<AquariumForm> {
                             : null,
                       ),
                     ),
+
+                    // Maße (Länge, Breite, Höhe)
+                    _card(
+                      'Dimensions (cm)',
+                      Icons.crop_square,
+                      Row(
+                        children: [
+                          Expanded(child: _dim(length, 'Length')),
+                          const SizedBox(width: 8),
+                          Expanded(child: _dim(width, 'Width')),
+                          const SizedBox(width: 8),
+                          Expanded(child: _dim(height, 'Height')),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -82,7 +98,6 @@ class _AquariumFormState extends State<AquariumForm> {
     );
   }
 
-  // Wiederverwendbare Karte
   Widget _card(String label, IconData? icon, Widget child) {
     return Container(
       width: double.infinity,
@@ -119,7 +134,6 @@ class _AquariumFormState extends State<AquariumForm> {
     );
   }
 
-  // Eingabefeld-Stil
   InputDecoration _input(String hint) {
     return InputDecoration(
       hintText: hint,
@@ -132,6 +146,25 @@ class _AquariumFormState extends State<AquariumForm> {
         borderSide: BorderSide.none,
       ),
       errorStyle: const TextStyle(fontSize: 11),
+    );
+  }
+
+  // Maßeingabefeld mit Zahlen-Validierung
+  Widget _dim(TextEditingController ctrl, String label) {
+    return TextFormField(
+      controller: ctrl,
+      style: const TextStyle(color: AppColors.text),
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+      ],
+      validator: (v) {
+        if (v == null || v.isEmpty) return 'Pflichtfeld';
+        final n = double.tryParse(v);
+        if (n == null || n <= 0) return 'Ungültig';
+        return null;
+      },
+      decoration: _input(label),
     );
   }
 }
