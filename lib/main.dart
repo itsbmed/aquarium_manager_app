@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'screens/aquarium_form.dart';
+import 'screens/aquarium_list.dart';
 
 void main() => runApp(const MyApp());
 
@@ -32,7 +34,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(tab == 0 ? 'Liste' : 'Formular')),
+      // Wechsel zwischen Liste und Formular
+      body: tab == 0
+          ? AquariumList(
+              aquariums: aquariums,
+              onDelete: (i) => setState(() => aquariums.removeAt(i)),
+              onCreateTap: () => setState(() => tab = 1),
+            )
+          : AquariumForm(
+              onSave: (aq) => setState(() {
+                aquariums.insert(0, aq);
+                tab = 0;
+              }),
+            ),
       // Untere Navigationsleiste
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
@@ -52,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Erstellt einen einzelnen Tab-Button
   Widget _tab(IconData icon, String label, int index) {
     final active = tab == index;
     return Expanded(
