@@ -49,8 +49,6 @@ class AquariumList extends StatelessWidget {
               ),
             ),
           ),
-
-          // Liste oder leerer Zustand
           Expanded(
             child: aquariums.isEmpty
                 ? Center(
@@ -86,7 +84,6 @@ class AquariumList extends StatelessWidget {
                     itemCount: aquariums.length,
                     itemBuilder: (context, i) {
                       final aq = aquariums[i];
-                      // Aquarium-Karte
                       return Container(
                         margin: const EdgeInsets.only(bottom: 12),
                         padding: const EdgeInsets.all(16),
@@ -97,7 +94,7 @@ class AquariumList extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            // Name
+                            // Name und Löschen-Button
                             Row(
                               children: [
                                 Container(
@@ -119,10 +116,17 @@ class AquariumList extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                GestureDetector(
+                                  onTap: () => onDelete(i),
+                                  child: Icon(
+                                    Icons.close,
+                                    size: 16,
+                                    color: AppColors.muted.withOpacity(0.5),
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 10),
-                            // Volumen, Maße und Korallentyp
                             Row(
                               children: [
                                 const Icon(
