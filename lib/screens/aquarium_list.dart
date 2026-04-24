@@ -23,17 +23,10 @@ class AquariumList extends StatelessWidget {
           Container(
             height: 180,
             width: double.infinity,
-            color: AppColors.primary,
-            child: const Center(
-              child: Text(
-                'ATI',
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w900,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.white,
-                  letterSpacing: 4,
-                ),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/app-header-bg.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
