@@ -30,7 +30,7 @@ Alternativ kann die App auch als APK auf einem Android-Gerät installiert werden
 - Volumen wird automatisch in Liter berechnet
 - Korallentyp auswählen (SPS, LPS, Mixed)
 - Eingabevalidierung (keine negativen Werte, keine leeren Felder)
-- **Bonus:** Mehrere Aquarien in einer Liste anzeigen (ohne Persistenz)
+- Mehrere Aquarien in einer Liste anzeigen (ohne Persistenz)
 
 ---
 

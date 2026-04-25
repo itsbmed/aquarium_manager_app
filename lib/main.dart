@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Erstellt einen einzelnen Tab-Button
   Widget _tab(IconData icon, String label, int index) {
     final active = tab == index;
     return Expanded(

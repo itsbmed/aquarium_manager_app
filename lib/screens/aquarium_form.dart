@@ -13,12 +13,12 @@ class AquariumForm extends StatefulWidget {
 
 class _AquariumFormState extends State<AquariumForm> {
   final _key = GlobalKey<FormState>();
-  final name = TextEditingController();
+  final name = TextEditingController(); // Schlüssel für Formular-Validierung
   final length = TextEditingController();
   final width = TextEditingController();
   final height = TextEditingController();
   double volume = 0;
-  String? coral;
+  String? coral; // Ausgewählter Korallentyp
 
   // Volumen berechnen: (L × B × H) / 1000 = Liter
   void calcVolume() {
@@ -66,6 +66,7 @@ class _AquariumFormState extends State<AquariumForm> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            // Kopfbild
             Container(
               height: 180,
               width: double.infinity,
@@ -76,6 +77,7 @@ class _AquariumFormState extends State<AquariumForm> {
                 ),
               ),
             ),
+            // Screen Titel
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
@@ -94,6 +96,7 @@ class _AquariumFormState extends State<AquariumForm> {
                 key: _key,
                 child: Column(
                   children: [
+                    // Namenseingabe
                     _card(
                       'Aquarium Name',
                       null,
@@ -106,7 +109,7 @@ class _AquariumFormState extends State<AquariumForm> {
                             : null,
                       ),
                     ),
-
+                    // Maße (Länge, Breite, Höhe)
                     _card(
                       'Dimensions (cm)',
                       Icons.crop_square,
@@ -120,7 +123,7 @@ class _AquariumFormState extends State<AquariumForm> {
                         ],
                       ),
                     ),
-
+                    // Volumenanzeige – wird automatisch berechnet
                     _card(
                       'Volume',
                       Icons.fullscreen,
@@ -147,7 +150,7 @@ class _AquariumFormState extends State<AquariumForm> {
                         ),
                       ),
                     ),
-
+                    // Korallentyp-Auswahl
                     _card(
                       'Coral Type',
                       Icons.grid_view,
@@ -228,6 +231,7 @@ class _AquariumFormState extends State<AquariumForm> {
     );
   }
 
+  // Wiederverwendbare Karte mit Titel und optionalem Icon
   Widget _card(String label, IconData? icon, Widget child) {
     return Container(
       width: double.infinity,
@@ -264,6 +268,7 @@ class _AquariumFormState extends State<AquariumForm> {
     );
   }
 
+  // Eingabefeld-Stil
   InputDecoration _input(String hint) {
     return InputDecoration(
       hintText: hint,
@@ -279,6 +284,7 @@ class _AquariumFormState extends State<AquariumForm> {
     );
   }
 
+  // Maßeingabefeld mit Zahlen-Validierung
   Widget _dim(TextEditingController ctrl, String label) {
     return TextFormField(
       controller: ctrl,

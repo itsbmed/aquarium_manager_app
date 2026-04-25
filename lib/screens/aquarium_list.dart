@@ -20,6 +20,7 @@ class AquariumList extends StatelessWidget {
       top: false,
       child: Column(
         children: [
+          // Kopfbild
           Container(
             height: 180,
             width: double.infinity,
@@ -30,6 +31,7 @@ class AquariumList extends StatelessWidget {
               ),
             ),
           ),
+          // Screen Titel
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Text(
@@ -42,6 +44,7 @@ class AquariumList extends StatelessWidget {
               ),
             ),
           ),
+          // Liste oder leerer Zustand
           Expanded(
             child: aquariums.isEmpty
                 ? Center(
