@@ -13,7 +13,7 @@ Eine Flutter-App zum Erstellen und Verwalten von Aquarien – gebaut als technis
 **Starten:**
 
 ```bash
-git clone https://github.com/dein-username/aquarium_manager.git
+git clone https://github.com/itsbmed/aquarium_manager_app.git
 cd aquarium_manager_app
 flutter pub get
 flutter run -d chrome (oder Wenn du android Studio hast, einfach Flutter run)
@@ -71,8 +71,9 @@ Die Aquarien werden im State von HomeScreen gespeichert und über Callbacks zwis
 
 ----
 
-## Wireframe of the formular:
+## Wireframe
 
+```
 ┌──────────────────────────────┐
 │       Create Aquarium        │
 ├──────────────────────────────┤
@@ -103,21 +104,20 @@ Die Aquarien werden im State von HomeScreen gespeichert und über Callbacks zwis
 │ │          Save            │ │
 │ └──────────────────────────┘ │
 └──────────────────────────────┘
+```
 
 ----
 ## Design
 
-Das UI-Design wurde in Figma erstellt:
-[Figma Design ansehen] https://www.figma.com/design/KgH8SgYCe5a6xvGQNwkp1J/ATI-Aquarium-Manager?node-id=0-1&t=j4NHx3SA3jrvbC5D-1
-
+👉 [Figma Design ansehen](https://www.figma.com/design/KgH8SgYCe5a6xvGQNwkp1J/ATI-Aquarium-Manager?node-id=0-1&t=j4NHx3SA3jrvbC5D-1)
 ---
 
 ### App Screenshots
 
-![Form Screen](screenshots/screenshoot1.png)
+![Home Screen](screenshots/screenshot1.jpg)
 
-![Form Screen](screenshots/screenshoot2.png)
+![Management Screen (empty)](screenshots/screenshot2.jpg)
 
-![Form Screen](screenshots/screenshoot3.png)
+![Management Screen (Full)](screenshots/screenshot3.jpg)
 
 
