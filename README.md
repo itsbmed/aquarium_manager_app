@@ -14,9 +14,9 @@ Eine Flutter-App zum Erstellen und Verwalten von Aquarien – gebaut als technis
 
 ```bash
 git clone https://github.com/dein-username/aquarium_manager.git
-cd aquarium_manager
+cd aquarium_manager_app
 flutter pub get
-flutter run -d chrome
+flutter run -d chrome (oder Wenn du android Studio hast, einfach Flutter run)
 ```
 
 Alternativ kann die App auch als APK auf einem Android-Gerät installiert werden. Die APK-Datei befindet sich im `build/` Ordner.
@@ -69,11 +69,46 @@ Die Aquarien werden im State von HomeScreen gespeichert und über Callbacks zwis
 - **Eigenes Design** – UI inspiriert von ATI Aquaristik mit hellen, warmen Farben
 - **Keine externe Pakete** für die Kernfunktionalität – nur Flutter-Bordmittel
 
+----
 
+## Wireframe of the formular:
+
+┌──────────────────────────────┐
+│       Create Aquarium        │
+├──────────────────────────────┤
+│ Name                         │
+│ ┌──────────────────────────┐ │
+│ │ My Reef Tank             │ │
+│ └──────────────────────────┘ │
+│                              │
+│ Dimensions (cm)              │
+│ ┌─────────┐ ┌─────────┐ ┌─────────┐
+│ │ Length  │ │ Width   │ │ Height  │
+│ │  100    │ │   50    │ │   60    │
+│ └─────────┘ └─────────┘ └─────────┘
+│                              │
+│ Volume (Liters)              │
+│ ┌──────────────────────────┐ │
+│ │ 300 L (auto-calculated)  │ │
+│ └──────────────────────────┘ │
+│                              │
+│ Coral Type                   │
+│ ┌──────────────────────────┐ │
+│ │ (•) SPS                  │ │
+│ │ ( ) LPS                  │ │
+│ │ ( ) Mixed                │ │
+│ └──────────────────────────┘ │
+│                              │
+│ ┌──────────────────────────┐ │
+│ │          Save            │ │
+│ └──────────────────────────┘ │
+└──────────────────────────────┘
+
+----
 ## Design
 
 Das UI-Design wurde in Figma erstellt:
-[Figma Design ansehen]https://www.figma.com/design/KgH8SgYCe5a6xvGQNwkp1J/ATI-Aquarium-Manager?node-id=0-1&t=j4NHx3SA3jrvbC5D-1
+[Figma Design ansehen] https://www.figma.com/design/KgH8SgYCe5a6xvGQNwkp1J/ATI-Aquarium-Manager?node-id=0-1&t=j4NHx3SA3jrvbC5D-1
 
 ---
 
@@ -85,6 +120,4 @@ Das UI-Design wurde in Figma erstellt:
 
 ![Form Screen](screenshots/screenshoot3.png)
 
----
 
-Gebaut mit Flutter 🩵
